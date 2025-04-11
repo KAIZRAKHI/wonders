@@ -585,15 +585,15 @@
         <!-- Hero Content -->
         <div class="flex flex-col lg:flex-row items-center justify-between mb-8 mt-[4%]">
             <div class="lg:w-1/2 mb-8 lg:mb-0 lg:pl-8 text-center lg:text-left">
-                <div class="text-[#FF3333] text-3xl md:text-4xl lg:text-[4.5rem] font-bold playful-font leading-tight mb-6 hero-title">
+                <div class="text-[#FF3333] text-[2.59rem] md:text-4xl lg:text-[4.5rem] font-bold playful-font leading-tight mb-6 hero-title">
                     Little Wonders
                 </div>
-                <h1 class="text-2xl md:text-3xl lg:text-4xl playful-font mb-6 hero-subtitle">
+                <h1 class="text-[1.984rem] md:text-3xl lg:text-4xl playful-font mb-6 hero-subtitle">
                     <div class="leading-tight">
                         Where Little Minds<br>
                         Blossom<br>
                         <span class="text-black">Explore, and<br>
-                        Shine Bright!</span>
+                        Shine <span class="text-[#FF3333]">Bright!</span></span>
                     </div>
                 </h1>
                 <a href="#programs">
@@ -708,7 +708,7 @@
                     </div>
                 </div>
                 <div class="flex-shrink-0">
-                    <img src="images/men.jpg" alt="Graduate" class="w-20 h-20 md:w-24 md:h-24 rounded-full">
+                    <img src="images/ceo.jpg" alt="Graduate" class="w-20 h-20 md:w-24 md:h-24 rounded-full">
                 </div>
             </div>
         </div>
@@ -1509,17 +1509,24 @@
 
         // Create new bubbles periodically
         function startBubbles() {
-            // Create initial set of bubbles
-            for(let i = 0; i < 8; i++) {
-                setTimeout(createBubble, Math.random() * 2000);
+            // Create initial set of bubbles immediately
+            for(let i = 0; i < 12; i++) {
+                createBubble();
             }
             
-            // Continue creating bubbles every 500ms (reduced frequency for better performance)
-            setInterval(createBubble, 500);
+            // Continue creating bubbles every 300ms for smoother appearance
+            setInterval(createBubble, 300);
         }
 
-        // Start the animation when the page loads
-        window.addEventListener('load', startBubbles);
+        // Start creating bubbles immediately when script loads
+        startBubbles();
+
+        // Also start when window loads (as backup)
+        window.addEventListener('load', () => {
+            if (document.getElementById('bubbleContainer').children.length === 0) {
+                startBubbles();
+            }
+        });
 
         function toggleMobileMenu() {
             const mobileMenu = document.querySelector('.mobile-menu');
