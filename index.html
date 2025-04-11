@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Little Wonders</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Bubblegum+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .playful-font {
+            font-family: 'Bubblegum Sans', cursive;
+        }
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #FFD600;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .bubble {
+            position: absolute;
+            pointer-events: auto;
+            z-index: 1;
+            will-change: transform;
+            background: none;
+            transform-origin: center center;
+            cursor: pointer;
+        }
+        .bubble img {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.3));
+            transition: transform 0.2s ease;
+        }
+        .bubble:hover img {
+            transform: scale(1.1);
+        }
+        .bubble.popping {
+            animation: pop 0.3s ease-out forwards;
+        }
+        @keyframes pop {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(0);
+                opacity: 0;
+            }
+        }
+        #bubbleContainer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        /* Cloud Styles */
+        .cloud {
+            position: absolute;
+            width: 100px;
+            height: auto;
+            animation: float 15s infinite linear;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+        }
+
+        .cloud1 {
+            top: 20px;
+            left: 10%;
+            animation-delay: 0s;
+            transform: scale(1.2);
+        }
+
+        .cloud2 {
+            top: 40px;
+            left: 40%;
+            animation-delay: -5s;
+            transform: scale(0.8);
+        }
+
+        .cloud3 {
+            top: 30px;
+            left: 70%;
+            animation-delay: -10s;
+            transform: scale(1.5);
+        }
+
+        .cloud4 {
+            top: 25px;
+            left: 25%;
+            animation-delay: -7s;
+            transform: scale(1.1);
+        }
+  
+
+        @keyframes float {
+            0% {
+                transform: translateX(-100%) scale(var(--scale, 1));
+            }
+            100% {
+                transform: translateX(calc(100vw + 100%)) scale(var(--scale, 1));
+            }
+        }
+
+        /* Base Mobile Styles */
+        @media (max-width: 640px) {
+            .container {
+                padding-left: 1rem !important;
+                padding-right: 1rem !important;
+            }
+
+            h2 {
+                font-size: 2rem !important;
+                line-height: 1.2 !important;
+            }
+
+            .text-5xl {
+                font-size: 2.5rem !important;
+                line-height: 1.2 !important;
+            }
+
+            .text-4xl {
+                font-size: 2rem !important;
+            }
+
+            .text-3xl {
+                font-size: 1.75rem !important;
+            }
+
+            .text-2xl {
+                font-size: 1.5rem !important;
+            }
+
+            .text-xl {
+                font-size: 1.25rem !important;
+            }
+
+            .py-20 {
+                padding-top: 3rem !important;
+                padding-bottom: 3rem !important;
+            }
+
+            .py-16 {
+                padding-top: 2.5rem !important;
+                padding-bottom: 2.5rem !important;
+            }
+
+            .py-12 {
+                padding-top: 2rem !important;
+                padding-bottom: 2rem !important;
+            }
+
+            .py-8 {
+                padding-top: 1.5rem !important;
+                padding-bottom: 1.5rem !important;
+            }
+
+            .px-8 {
+                padding-left: 1rem !important;
+                padding-right: 1rem !important;
+            }
+
+            .gap-12 {
+                gap: 1.5rem !important;
+            }
+
+            .gap-8 {
+                gap: 1rem !important;
+            }
+
+            .gap-6 {
+                gap: 0.75rem !important;
+            }
+
+            .space-y-6 > :not([hidden]) ~ :not([hidden]) {
+                margin-top: 1rem !important;
+            }
+
+            .w-56 {
+                width: 10rem !important;
+            }
+
+            .w-48 {
+                width: 8rem !important;
+            }
+
+            .w-32 {
+                width: 6rem !important;
+            }
+
+            .w-24 {
+                width: 4rem !important;
+            }
+
+            .w-16 {
+                width: 3rem !important;
+            }
+
+            .w-12 {
+                width: 2.5rem !important;
+            }
+
+            .h-24 {
+                height: 4rem !important;
+            }
+
+            .rounded-3xl {
+                border-radius: 1.5rem !important;
+            }
+
+            .rounded-2xl {
+                border-radius: 1rem !important;
+            }
+
+            /* Navigation Specific */
+            .nav-menu-mobile {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 80%;
+                background: white;
+                transition: 0.3s;
+                padding: 2rem;
+                z-index: 50;
+            }
+
+            .nav-menu-mobile.active {
+                right: 0;
+            }
+        }
+
+        /* Tablet Styles */
+        @media (min-width: 641px) and (max-width: 1024px) {
+            .container {
+                padding-left: 2rem !important;
+                padding-right: 2rem !important;
+            }
+
+            .text-5xl {
+                font-size: 3rem !important;
+            }
+
+            .text-4xl {
+                font-size: 2.5rem !important;
+            }
+
+            .py-20 {
+                padding-top: 4rem !important;
+                padding-bottom: 4rem !important;
+            }
+
+            .gap-12 {
+                gap: 2rem !important;
+            }
+        }
+
+        /* Hero Section Mobile Adjustments */
+        @media (max-width: 640px) {
+            .hero-content {
+                text-align: center;
+            }
+
+            .hero-image {
+                margin-top: 2rem;
+                transform: scale(1.1);
+            }
+        }
+
+        /* Programs Section Mobile Adjustments */
+        @media (max-width: 640px) {
+            .program-card {
+                padding: 1rem !important;
+            }
+
+            .program-icon {
+                width: 2.5rem !important;
+                height: 2.5rem !important;
+            }
+        }
+
+        /* Testimonials Mobile Adjustments */
+        @media (max-width: 640px) {
+            .testimonial-card {
+                flex-direction: column !important;
+                align-items: center !important;
+                text-align: center !important;
+            }
+
+            .testimonial-image {
+                margin-top: 1rem;
+            }
+        }
+
+        /* Contact Form Mobile Adjustments */
+        @media (max-width: 640px) {
+            .form-container {
+                padding: 1.5rem !important;
+            }
+
+            .input-field {
+                padding: 0.75rem !important;
+            }
+
+            .submit-button {
+                width: 100% !important;
+                padding: 0.75rem !important;
+            }
+        }
+
+        /* Footer Mobile Adjustments */
+        @media (max-width: 640px) {
+            .footer-content {
+                text-align: center !important;
+            }
+
+            .social-icons {
+                justify-content: center !important;
+            }
+
+            .contact-info {
+                text-align: center !important;
+                margin-top: 2rem !important;
+            }
+        }
+
+        /* Bubble Animation Adjustments */
+        @media (max-width: 640px) {
+            .bubble {
+                transform: scale(0.7);
+            }
+        }
+
+        /* Cloud Animation Adjustments */
+        @media (max-width: 640px) {
+            .cloud {
+                transform: scale(0.6);
+            }
+        }
+
+        .fun-nav {
+            background: linear-gradient(to right, #FF9AA2, #FFB7B2, #FFDAC1, #E2F0CB, #B5EAD7);
+            animation: gradientBG 15s ease infinite;
+            background-size: 400% 400%;
+        }
+
+        .nav-item {
+            position: relative;
+            transition: all 0.3s ease;
+            color: #444;
+        }
+
+        .nav-item:hover {
+            color: #FF6B6B;
+        }
+
+        .nav-item::before {
+            background: #FF6B6B;
+        }
+
+        .logo-text {
+            background: linear-gradient(45deg, #FF6B6B, #FF9AA2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .enroll-button {
+            background: #FF6B6B;
+            color: white !important;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .enroll-button:hover {
+            background: #FF8585;
+        }
+
+        .mobile-menu {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Add shining star animation styles */
+        @keyframes starShine {
+            0% {
+                transform: scale(1) rotate(0deg);
+                filter: brightness(1);
+            }
+            25% {
+                transform: scale(1.2) rotate(15deg);
+                filter: brightness(1.3);
+            }
+            50% {
+                transform: scale(1) rotate(0deg);
+                filter: brightness(1);
+            }
+            75% {
+                transform: scale(1.2) rotate(-15deg);
+                filter: brightness(1.3);
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+                filter: brightness(1);
+            }
+        }
+
+        .shining-star {
+            animation: starShine 2s ease-in-out infinite;
+            transform-origin: center;
+        }
+
+        @keyframes float-slow {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        @keyframes float-medium {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(-5deg); }
+        }
+        @keyframes float-fast {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(3deg); }
+        }
+        @keyframes cloud-slow {
+            0%, 100% { transform: translateX(0) scale(1); }
+            50% { transform: translateX(20px) scale(1.1); }
+        }
+        @keyframes cloud-medium {
+            0%, 100% { transform: translateX(0) scale(1); }
+            50% { transform: translateX(-15px) scale(1.05); }
+        }
+        @keyframes cloud-fast {
+            0%, 100% { transform: translateX(0) scale(1); }
+            50% { transform: translateX(10px) scale(1.15); }
+        }
+        @keyframes heart-slow {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.2) rotate(10deg); }
+        }
+        @keyframes heart-medium {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(-10deg); }
+        }
+        .animate-float-slow { animation: float-slow 4s ease-in-out infinite; }
+        .animate-float-medium { animation: float-medium 3s ease-in-out infinite; }
+        .animate-float-fast { animation: float-fast 2s ease-in-out infinite; }
+        .animate-cloud-slow { animation: cloud-slow 5s ease-in-out infinite; }
+        .animate-cloud-medium { animation: cloud-medium 4s ease-in-out infinite; }
+        .animate-cloud-fast { animation: cloud-fast 3s ease-in-out infinite; }
+        .animate-heart-slow { animation: heart-slow 4s ease-in-out infinite; }
+        .animate-heart-medium { animation: heart-medium 3s ease-in-out infinite; }
+    </style>
+</head>
+<body class="bg-[#E6F4FF]">
+    <!-- Mobile Menu -->
+    <div class="mobile-menu md:hidden fixed top-0 right-0 w-4/5 h-full transform translate-x-full transition-transform duration-200 ease-in-out z-50 rounded-l-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] backdrop-blur-sm bg-opacity-95 overflow-y-auto">
+        <div class="p-6 space-y-6">
+            <div class="flex justify-between items-center mb-8">
+                <div class="text-xl font-bold playful-font logo-text text-[#FF3333]">Little Wonders</div>
+                <button onclick="toggleMobileMenu()" class="p-2">
+                    <i class="fas fa-times text-2xl text-gray-700"></i>
+                </button>
+            </div>
+            <div class="flex flex-col space-y-6">
+                <a href="#" class="text-gray-700 hover:text-[#FF3333] font-medium flex items-center space-x-2">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="#about" class="text-gray-700 hover:text-[#FF3333] font-medium flex items-center space-x-2">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>About Us</span>
+                </a>
+                <a href="#programs" class="text-gray-700 hover:text-[#FF3333] font-medium flex items-center space-x-2">
+                    <i class="fas fa-star"></i>
+                    <span>Programs</span>
+                </a>
+                <a href="#facilites" class="text-gray-700 hover:text-[#FF3333] font-medium flex items-center space-x-2">
+                    <i class="fas fa-school"></i>
+                    <span>Facilities</span>
+                </a>
+                <a href="gallery.html" class="text-gray-700 hover:text-[#FF3333] font-medium flex items-center space-x-2">
+                    <i class="fas fa-images"></i>
+                    <span>Gallery</span>
+                </a>
+                <a href="#contact"><button class="enroll-button px-6 py-3 rounded-full font-medium shadow-lg w-full flex items-center justify-center space-x-2 bg-[#FF3333] text-white">
+                    <i class="fas fa-envelope"></i>
+                    <span>Contact</span>
+                </button></a>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Add overlay for mobile menu -->
+    <div class="mobile-menu-overlay md:hidden fixed inset-0  transform translate-x-full transition-transform duration-200 ease-in-out z-45"></div>
+
+    <!-- Navigation -->
+    <nav class="fun-nav sticky top-4 z-40 mx-4 md:mx-8 lg:mx-16 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] backdrop-blur-sm bg-opacity-95">
+        <div class="container mx-auto px-2 py-1">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                 <a href="index.html">
+                <div class="flex items-center">
+                    <img src="images/lw.png" alt="Little Wonders Logo" class="w-18 h-6 sm:w-24 sm:h-7 md:w-20 md:h-20">
+                </div>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#home" class="nav-item font-medium transition-all flex items-center space-x-1">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    <a href="#about" class="nav-item font-medium transition-all flex items-center space-x-1">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>About Us</span>
+                    </a>
+                    <a href="#programs" class="nav-item font-medium transition-all flex items-center space-x-1">
+                        <i class="fas fa-star"></i>
+                        <span>Programs</span>
+                    </a>
+                    <a href="#facilities" class="nav-item font-medium transition-all flex items-center space-x-1">
+                        <i class="fas fa-school"></i>
+                        <span>Facilities</span>
+                    </a>
+                    <a href="gallery.html" class="text-gray-700 hover:text-[#FF3333] font-medium flex items-center space-x-2">
+                        <i class="fas fa-images"></i>
+                        <span>Gallery</span>
+                    </a>
+                    <a href="#contact">
+                    <button class="enroll-button px-6 py-3 rounded-full font-medium shadow-lg transform hover:scale-105 transition-all flex items-center space-x-2 bg-[#FF3333]">
+                        <i class="fas fa-envelope"></i>
+                        <span>Contact</span>
+                    </button></a>
+        
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden mobile-menu-button p-2 " onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars text-2xl text-gray-700"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Rainbow -->
+    <div id="home" class="container mx-auto px-4 py-8 overflow-hidden relative min-h-[90vh] flex flex-col bg-gradient-to-b from-[#E6F4FF] via-[#B3E0FF] to-[#80CCFF]">
+        <div id="bubbleContainer"></div>
+        <!-- Hero Content -->
+        <div class="flex flex-col lg:flex-row items-center justify-between mb-8 mt-[4%]">
+            <div class="lg:w-1/2 mb-8 lg:mb-0 lg:pl-8 text-center lg:text-left">
+                <div class="text-[#FF3333] text-3xl md:text-4xl lg:text-[4.5rem] font-bold playful-font leading-tight mb-6 hero-title">
+                    Little Wonders
+                </div>
+                <h1 class="text-2xl md:text-3xl lg:text-4xl playful-font mb-6 hero-subtitle">
+                    <div class="leading-tight">
+                        Where Little Minds<br>
+                        Blossom<br>
+                        <span class="text-black">Explore, and<br>
+                        Shine Bright!</span>
+                    </div>
+                </h1>
+                <a href="#programs">
+                <button class="bg-[#FFD600] text-black px-6 py-2 rounded-full font-medium mt-4 hover:bg-[#FFE033] text-base md:text-lg">
+                    See Our Programs
+                </button></a>
+            </div>
+            <div class="lg:w-1/2 -mx-4 lg:mx-0 lg:mr-[5%] relative pt-8 md:pt-12 lg:pt-0">
+                <div class="relative">
+                    <img src="images/mainn.png" alt="Students collaborating" class="rounded-[2rem] w-full scale-[1.4]">
+                </div>
+            </div>
+            
+        </div>
+
+        <!-- Rainbow Divider with Clouds -->
+        <div class="relative w-full h-48 overflow-hidden mt-auto rainbow-section">
+            <div class="absolute inset-0 flex items-center justify-center">
+                <!-- Rainbow SVG -->
+                <svg class="w-full h-full" viewBox="-300 0 1800 300" preserveAspectRatio="none">
+                    <!-- Rainbow layers with adjusted curves -->
+                    <path d="M-300,150 Q600,0 1500,150" fill="none" stroke="#FF0000" stroke-width="25" opacity="0.7"/>
+                    <path d="M-300,150 Q600,0 1500,150" fill="none" stroke="#FF7F00" stroke-width="25" opacity="0.7" transform="translate(0,25)"/>
+                    <path d="M-300,150 Q600,0 1500,150" fill="none" stroke="#FFFF00" stroke-width="25" opacity="0.7" transform="translate(0,50)"/>
+                    <path d="M-300,150 Q600,0 1500,150" fill="none" stroke="#00FF00" stroke-width="25" opacity="0.7" transform="translate(0,75)"/>
+                    <path d="M-300,150 Q600,0 1500,150" fill="none" stroke="#0000FF" stroke-width="25" opacity="0.7" transform="translate(0,100)"/>
+                    <path d="M-300,150 Q600,0 1500,150" fill="none" stroke="#4B0082" stroke-width="25" opacity="0.7" transform="translate(0,125)"/>
+                    <path d="M-300,150 Q600,0 1500,150" fill="none" stroke="#9400D3" stroke-width="25" opacity="0.7" transform="translate(0,150)"/>
+                </svg>
+            </div>
+            <!-- Floating Clouds -->
+            <div class="absolute inset-0">
+                <img src="images/cloud.png" alt="Cloud" class="cloud cloud1">
+                <img src="images/cloud.png" alt="Cloud" class="cloud cloud2">
+                <img src="images/cloud.png" alt="Cloud" class="cloud cloud3">
+                <img src="images/cloud.png" alt="Cloud" class="cloud cloud4">
+            </div>
+        </div>
+    </div>
+
+    <!-- About Us Section -->
+    <div id="about" class="container mx-auto px-4 py-16">
+        <div class="flex flex-col lg:flex-row items-center gap-12">
+            <!-- Images Section -->
+            <div class="lg:w-1/2 relative">
+                <div class="p-4 w-[90%] mx-auto">
+                    <img src="images/hero-img.png" alt="Student with laptop" class="w-full rounded-lg">
+                </div>
+            </div>
+
+            <!-- Content Section -->
+            <div class="lg:w-1/2 text-center lg:text-left">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 about-title">
+                    Where Tiny Steps<br>
+                    Lead to<br>
+                    <span class="font-black">Big Dreams</span>
+                </h2>
+
+                <p class="text-gray-700 mb-8 text-sm md:text-base">
+                    At Little Wonders, we believe in nurturing young minds through joyful and engaging learning. Our Montessori and Play-way approach builds confidence, independence, and a love for learning in children aged 2 to 5. Every day is filled with fun, creativity, and discovery in a warm and caring environment.
+
+                </p>
+
+                <!-- Features List -->
+                <div class="space-y-8">
+                    <!-- Feature 1 -->
+                    <div class="flex items-start gap-4">
+                        <div class="flex-shrink-0">
+                            <img class="w-8 h-8 md:w-12 md:h-12 shining-star" src="images/star.png" alt="Star icon">
+                        </div>
+                        <div>
+                            <h3 class="text-lg md:text-xl font-bold mb-1 feature-title">Montessori & Play-way Method</h3>
+                            <p class="text-gray-700 text-sm md:text-base">We blend structured learning with playful activities to spark creativity and curiosity.</p>
+                        </div>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div class="flex items-start gap-4">
+                        <div class="flex-shrink-0">
+                            <img class="w-8 h-8 md:w-12 md:h-12 shining-star" src="images/star.png" alt="Star icon">
+                        </div>
+                        <div>
+                            <h3 class="text-lg md:text-xl font-bold mb-1 feature-title">Safe & Supportive Environment</h3>
+                            <p class="text-gray-700 text-sm md:text-base">A nurturing space where your child feels secure, valued, and confident to explore.</p>
+                        </div>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div class="flex items-start gap-4">
+                        <div class="flex-shrink-0">
+                            <img class="w-8 h-8 md:w-12 md:h-12 shining-star" src="images/star.png" alt="Star icon">
+                        </div>
+                        <div>
+                            <h3 class="text-lg md:text-xl font-bold mb-1 feature-title">Daycare Facility Available</h3>
+                            <p class="text-gray-700 text-sm md:text-base">Convenient and caring full-day support tailored to working parents' needs.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Testimonial Section -->
+        <div class="mt-16">
+            <div class="bg-[#FF69B4] rounded-2xl p-4 md:p-8 flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="flex items-start gap-4">
+                    <img src="images/quote.png" alt="Quote" class="w-8 h-8 md:w-10 md:h-10">
+                    <div class="text-white">
+                        <p class="text-base md:text-xl mb-4 testimonial-text">At Little Wonders, we believe that every child is a unique spark waiting to shine. Our mission is to create a joyful space where learning feels like play, and curiosity is always encouraged. With a blend of proven teaching methods, caring educators, and a safe environment, we are proud to offer children their first steps toward a bright future.</p>
+
+                            <p class="text-base md:text-xl mb-4 testimonial-text">Thank you for trusting us with your child's early journey—we promise to make it magical!</p>
+                        <p class="text-xl md:text-2xl font-bold testimonial-author">~ Dr. V.R. Aloke</p>
+                    </div>
+                </div>
+                <div class="flex-shrink-0">
+                    <img src="images/men.jpg" alt="Graduate" class="w-20 h-20 md:w-24 md:h-24 rounded-full">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Programs Section -->
+    <div id="programs" class="container mx-auto px-8 md:px-16 lg:px-24 py-10">
+        <div class="text-center mb-10">
+            <h2 class="text-4xl font-normal mb-1">Programs <span class="font-black">Designed for Success</span></h2>
+            <p class="text-xl text-gray-600">Foundations for a Lifetime of Learning</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div class="bg-white p-5 rounded-lg shadow-sm">
+                <div class="w-full h-48 mb-4 rounded-lg overflow-hidden">
+                    <img src="images/kinder1.jpg" alt="Coding" class="w-full h-full object-cover">
+                </div>
+                <h3 class="text-xl font-bold mb-3">Playschool (Ages 2 – 2.5)</h3>
+                <p class="text-gray-600 text-sm"><i class="fas fa-circle-check text-blue-500 mr-2"></i> Sensory play & exploration</p>
+                <p class="text-gray-600 text-sm"><i class="fas fa-circle-check text-blue-500 mr-2"></i> Music, dance & story time</p>
+                <p class="text-gray-600 text-sm"><i class="fas fa-circle-check text-blue-500 mr-2"></i> Emotional bonding & comfort</p>
+                <p class="text-gray-600 text-sm"><i class="fas fa-circle-check text-blue-500 mr-2"></i> Social interaction development</p>
+                                                                            </div>
+
+            <div class="bg-white p-5 rounded-lg shadow-sm">
+                <div class="w-full h-48 mb-4 rounded-lg overflow-hidden">
+                    <img src="images/kinder2.jpg" alt="Data Analytics" class="w-full h-full object-cover">
+                </div>
+                <h3 class="text-xl font-bold mb-3"> Nursery (Ages 2.5 – 3.5)</h3>
+                <p class="text-gray-600 text-sm"><i class="fas fa-circle-check text-blue-500 mr-2"></i> Introduction to letters & numbers</p>
+                <p class="text-gray-600 text-sm"><i class="fas fa-circle-check text-blue-500 mr-2"></i> Art, craft & rhymes</p>
+                <p class="text-gray-600 text-sm"><i class="fas fa-circle-check text-blue-500 mr-2"></i> Fine motor skill development</p>
+                <p class="text-gray-600 text-sm"><i class="fas fa-circle-check text-blue-500 mr-2"></i> Confidence through creative play</p>
+                            </div>
+
+            <div class="bg-white p-5 rounded-lg shadow-sm">
+                <div class="w-full h-48 mb-4 rounded-lg overflow-hidden">
+                    <img src="images/kinder3.jpg" alt="Digital Marketing" class="w-full h-full object-cover">
+                </div>
+                <h3 class="text-xl font-bold mb-3">LKG (Ages 3.5 – 4.5)</h3>
+                <p class="text-gray-600 text-sm"><i class="fas fa-circle-check text-blue-500 mr-2"></i> Phonics & early literacy</p>
+                <p class="text-gray-600 text-sm"><i class="fas fa-circle-check text-blue-500 mr-2"></i> Counting & number concepts</p>
+                <p class="text-gray-600 text-sm"><i class="fas fa-circle-check text-blue-500 mr-2"></i> Pre-writing practice</p>
+                <p class="text-gray-600 text-sm"><i class="fas fa-circle-check text-blue-500 mr-2"></i> Communication & role-play</p>
+                            </div>
+
+            <div class="bg-white p-5 rounded-lg shadow-sm">
+                <div class="w-full h-48 mb-4 rounded-lg overflow-hidden">
+                    <img src="images/kinder4.jpg" alt="UX/UI Design" class="w-full h-full object-cover">
+                </div>
+                <h3 class="text-xl font-bold mb-3"> UKG (Ages 4.5 – 5.5)</h3>
+                <p class="text-gray-600 text-sm"><i class="fas fa-circle-check text-blue-500 mr-2"></i> Reading & sentence building</p>
+                <p class="text-gray-600 text-sm"><i class="fas fa-circle-check text-blue-500 mr-2"></i> Basic math & problem-solving</p>
+                <p class="text-gray-600 text-sm"><i class="fas fa-circle-check text-blue-500 mr-2"></i> Vocabulary & storytelling</p>
+                <p class="text-gray-600 text-sm"><i class="fas fa-circle-check text-blue-500 mr-2"></i> School readiness & teamwork</p>
+                            </div>
+        </div>
+    </div>
+    
+    <!-- Summer Camp Section -->
+    <div class="bg-gradient-to-b from-[#FFD700] to-[#FFA500] py-12 md:py-16 lg:py-20">
+        <div class="container mx-auto px-4 md:px-8 lg:px-16">
+            <!-- Main Heading -->
+            <div class="text-center mb-8 md:mb-12 lg:mb-16">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-normal mb-2 md:mb-4 playful-font">
+                    Little Wonders<br>
+                    <span class="font-black">Summer Camp</span>
+                </h2>
+                <p class="text-lg md:text-xl text-gray-800">Where Summer Dreams Come True!</p>
+            </div>
+
+            <!-- Activity Cards Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8 mb-8 md:mb-12 lg:mb-16">
+                <!-- Creative Workshops -->
+                <div class="bg-white rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-lg transform hover:scale-105 transition-transform">
+                    <div class="w-full h-48 mb-4 md:mb-6 rounded-xl overflow-hidden">
+                        <img src="images/art.jpg" alt="Art & Craft" class="w-full h-full object-contain">
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-bold text-center mb-3 md:mb-4">Creative Workshops</h3>
+                    <ul class="space-y-2 md:space-y-3 text-gray-700 text-sm md:text-base">
+                        <li class="flex items-center">
+                            <i class="fas fa-star text-[#FFD700] mr-2"></i>
+                            <span>Art & Craft</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-star text-[#FFD700] mr-2"></i>
+                            <span>Music & Dance</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-star text-[#FFD700] mr-2"></i>
+                            <span>Story Time</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Fun & Fitness -->
+                <div class="bg-white rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-lg transform hover:scale-105 transition-transform">
+                    <div class="w-full h-48 mb-4 md:mb-6 rounded-xl overflow-hidden">
+                        <img src="images/yoga.jpg" alt="Yoga & Fitness" class="w-full h-full object-contain">
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-bold text-center mb-3 md:mb-4">Fun & Fitness</h3>
+                    <ul class="space-y-2 md:space-y-3 text-gray-700 text-sm md:text-base">
+                        <li class="flex items-center">
+                            <i class="fas fa-star text-[#FFD700] mr-2"></i>
+                            <span>Outdoor Games</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-star text-[#FFD700] mr-2"></i>
+                            <span>Yoga for Kids</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-star text-[#FFD700] mr-2"></i>
+                            <span>Water Play</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Nature & Discovery -->
+                <div class="bg-white rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-lg transform hover:scale-105 transition-transform">
+                    <div class="w-full h-48 mb-4 md:mb-6 rounded-xl overflow-hidden">
+                        <img src="images/nature.jpg" alt="Nature & Discovery" class="w-full h-full object-contain">
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-bold text-center mb-3 md:mb-4">Nature & Discovery</h3>
+                    <ul class="space-y-2 md:space-y-3 text-gray-700 text-sm md:text-base">
+                        <li class="flex items-center">
+                            <i class="fas fa-star text-[#FFD700] mr-2"></i>
+                            <span>Gardening</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-star text-[#FFD700] mr-2"></i>
+                            <span>Nature Walks</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-star text-[#FFD700] mr-2"></i>
+                            <span>Bug Hunt</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Music & Movement -->
+                <div class="bg-white rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-lg transform hover:scale-105 transition-transform">
+                    <div class="w-full h-48 mb-4 md:mb-6 rounded-xl overflow-hidden">
+                        <img src="images/music.jpg" alt="Music & Movement" class="w-full h-full object-contain">
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-bold text-center mb-3 md:mb-4">Music & Movement</h3>
+                    <ul class="space-y-2 md:space-y-3 text-gray-700 text-sm md:text-base">
+                        <li class="flex items-center">
+                            <i class="fas fa-star text-[#FFD700] mr-2"></i>
+                            <span>Rhythm & Beats</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-star text-[#FFD700] mr-2"></i>
+                            <span>Dance & Expression</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-star text-[#FFD700] mr-2"></i>
+                            <span>Group Activities</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Schedule Section -->
+            <div class="bg-white rounded-2xl md:rounded-3xl p-6 md:p-8 lg:p-12 mb-8 md:mb-12 lg:mb-16">
+                <h3 class="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8">Daily Schedule</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
+                    <div class="bg-[#FFF8DC] rounded-xl md:rounded-2xl p-4 md:p-6">
+                        <h4 class="text-lg md:text-xl font-bold mb-3 md:mb-4 text-[#FF69B4]">Morning Session</h4>
+                        <ul class="space-y-2 md:space-y-3 text-sm md:text-base">
+                            <li class="flex items-center">
+                                <span class="w-16 md:w-20 text-gray-600">9:00 AM</span>
+                                <span>Welcome & Circle Time</span>
+                            </li>
+                            <li class="flex items-center">
+                                <span class="w-16 md:w-20 text-gray-600">9:30 AM</span>
+                                <span>Creative Activities</span>
+                            </li>
+                            <li class="flex items-center">
+                                <span class="w-16 md:w-20 text-gray-600">10:30 AM</span>
+                                <span>Snack Break</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bg-[#FFF8DC] rounded-xl md:rounded-2xl p-4 md:p-6">
+                        <h4 class="text-lg md:text-xl font-bold mb-3 md:mb-4 text-[#87CEEB]">Afternoon Session</h4>
+                        <ul class="space-y-2 md:space-y-3 text-sm md:text-base">
+                            <li class="flex items-center">
+                                <span class="w-16 md:w-20 text-gray-600">12:00 PM</span>
+                                <span>Lunch Time</span>
+                            </li>
+                            <li class="flex items-center">
+                                <span class="w-16 md:w-20 text-gray-600">1:00 PM</span>
+                                <span>Outdoor Activities</span>
+                            </li>
+                            <li class="flex items-center">
+                                <span class="w-16 md:w-20 text-gray-600">2:00 PM</span>
+                                <span>Nature & Discovery</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bg-[#FFF8DC] rounded-xl md:rounded-2xl p-4 md:p-6">
+                        <h4 class="text-lg md:text-xl font-bold mb-3 md:mb-4 text-[#98FB98]">Evening Session</h4>
+                        <ul class="space-y-2 md:space-y-3 text-sm md:text-base">
+                            <li class="flex items-center">
+                                <span class="w-16 md:w-20 text-gray-600">3:00 PM</span>
+                                <span>Music & Dance</span>
+                            </li>
+                            <li class="flex items-center">
+                                <span class="w-16 md:w-20 text-gray-600">4:00 PM</span>
+                                <span>Story Time</span>
+                            </li>
+                            <li class="flex items-center">
+                                <span class="w-16 md:w-20 text-gray-600">5:00 PM</span>
+                                <span>Home Time</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Enroll Button -->
+            <div class="text-center">
+                <a href="#contact">
+                <button class="bg-[#FF69B4] text-white px-4 md:px-8 py-2 md:py-4 rounded-full text-sm md:text-xl font-medium hover:bg-[#FF1493] transition-colors shadow-lg transform hover:scale-105 w-2/3 md:w-auto">
+                    <i class="fas fa-sun mr-2"></i>
+                    Secure Your Child's Spot – Admissions Now Open!
+                    <i class="fas fa-sun ml-2"></i>
+                </button></a>
+                            </div>
+        </div>
+    </div>
+    
+        <!-- Three Steps Section -->
+        <div id="facilities" class="container mx-auto px-8 md:px-16 lg:px-24 py-20">
+            <h2 class="text-center text-5xl font-normal mb-16">
+                Where Little Ones Feel  <span class="font-black">Safe &<br>Loved</span>
+            </h2>
+    
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Step 1: Enroll -->
+                <div class="bg-[#87CEEB] rounded-3xl p-8">
+                    <div class="flex items-start mb-6">
+                        <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center font-bold text-xl">
+                            1
+                        </div>
+                    </div>
+                    <div class="flex justify-center mb-6">
+                        <img src="images/safe.png" alt="Pencil icon" class="w-16 h-16">
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3">Secure Campus</h3>
+                    <p class="text-lg">Child-friendly infrastructure with CCTV-monitored entry and exit points.</p>
+                </div>
+    
+                <!-- Step 2: Learn -->
+                <div class="bg-[#FFD700] rounded-3xl p-8">
+                    <div class="flex items-start mb-6">
+                        <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center font-bold text-xl">
+                            2
+                        </div>
+                    </div>
+                    <div class="flex justify-center mb-6">
+                        <img src="images/staff.png" alt="Book icon" class="w-18 h-20">
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3">Trusted Teachers</h3>
+                    <p class="text-lg">Caring, trained professionals who treat every child like their own.</p>
+                </div>
+    
+                <!-- Step 3: Excel -->
+                <div class="bg-[#FF69B4] rounded-3xl p-8">
+                    <div class="flex items-start mb-6">
+                        <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center font-bold text-xl">
+                            3
+                        </div>
+                    </div>
+                    <div class="flex justify-center mb-6">
+                        <img src="images/bus.png" alt="Bus icon" class="w-14 h-22">
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3"> Safe Transportation</h3>
+                    <p class="text-lg">Reliable pick-up and drop services with attentive caretakers.</p>
+                </div>
+            </div>
+    
+            <div class="flex justify-center mt-12">
+                <a href="#contact">
+                <button class="text-sm md:text-xl px-4 md:px-12 py-1.5 md:py-4 border-2 border-black rounded-full hover:bg-black hover:text-white transition-colors w-2/3 md:w-auto">
+                    Start Your Learning Journey Today
+                </button></a>
+            </div>
+        </div>
+
+           <!-- Expert Guidance Section -->
+    <div class="bg-[#FF69B4] py-16">
+        <div class="container mx-auto px-8 md:px-16 lg:px-24">
+            <div class="flex flex-col lg:flex-row items-center justify-between gap-12">
+                <!-- Left Content -->
+                <div class="lg:w-1/2 text-center lg:text-left">
+                    <h2 class="text-4xl md:text-5xl font-normal mb-4">
+                        Expert Guidance<br>
+                        to <span class="font-black">Elevate Your<br>
+                        Learning</span>
+                    </h2>
+                    <p class="text-xl md:text-2xl leading-relaxed">
+                        At Little Wonders, your child learns and grows under the loving guidance of experienced educators and pediatric professionals. Our team is trained in early childhood development to ensure every moment is safe, enriching, and full of joy.
+                    </p>
+                </div>
+
+                <!-- Right Content - Featured Instructor -->
+                <div class="lg:w-1/2 relative">
+                    <div class="relative">
+                        <!-- Decorative Elements -->
+                        <div class="absolute -top-4 right-4 w-8 h-8 bg-green-400 rounded-lg hidden md:block"></div>
+                        <div class="absolute -top-2 right-16 w-6 h-6 bg-yellow-400 rounded-lg hidden md:block"></div>
+                        <div class="absolute top-8 -left-4 w-8 h-8 bg-blue-400 rounded-lg hidden md:block"></div>
+                        <div class="absolute top-12 -right-2 w-6 h-6 bg-pink-400 rounded-lg hidden md:block"></div>
+                        
+                        <!-- Instructor Image Container -->
+                        <div class="bg-white rounded-3xl p-4 shadow-lg relative mb-8 md:mb-0">
+                            <img src="images/kinder1.jpg" alt="Featured Instructor" class="w-full rounded-2xl">
+                        </div>
+
+                        <!-- Instructor Info Card -->
+                        <div class="bg-[#FFD700] rounded-2xl p-6 md:absolute md:-bottom-12 md:right-4 max-w-sm mx-auto md:mx-0">
+                            <h3 class="text-2xl font-bold mb-3">Guided by Expertise & Care</h3>
+                            <h4 class="text-xl font-bold mb-4">Dr. V.R. Aloke, MD, DCH, DM (Neonatology)</h4>
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <span class="text-lg">•Renowned Neonatologist & Pediatrician</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-lg">•Decades of experience in child wellness and early development</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Graduates Section -->
+    <div class="container mx-auto px-8 md:px-16 lg:px-24 py-20 relative">
+        <div class="flex flex-col lg:flex-row gap-12">
+            <!-- Left Side Content -->
+            <div class="lg:w-1/3">
+                <h2 class="text-5xl mb-6">
+                    Hear from Our<br>
+                    <span class="font-black">Happy Parents</span>
+                </h2>
+                <p class="text-xl">
+                    Join countless proud parents who've seen their little ones grow in confidence, creativity, and joy at Little Wonders. From first steps to first words, every milestone is nurtured with love and care.                </p>
+                <!-- Blue Arrow -->
+                <div class="hidden lg:block absolute left-16">
+                    <img src="images/arrow.png" alt="Arrow" class="w-56 h-auto">
+                </div>
+            </div>
+
+            <!-- Right Side Testimonials -->
+            <div class="lg:w-2/3 space-y-6">
+                <!-- Testimonial 1 -->
+                <div class="bg-gray-50 rounded-2xl p-8 flex items-start gap-6">
+                    <div class="flex-grow">
+                        <div class="w-10 h-10 bg-[#FF69B4] rounded-full flex items-center justify-center mb-4">
+                            <img src="images/quote.png" alt="Quote" class="w-8 h-8 md:w-8 md:h-8">
+                        </div>
+                        <p class="text-lg mb-4">As a parent, safety is always my top concern. Little Wonders gave me complete peace of mind. From secure premises to attentive staff, I knew my child was always in good hands</p>
+                        <p class="font-bold text-xl">Mrs. Anjana R., Parent of UKG student</p>
+                    </div>
+                    <img src="images/lady.jpg" alt="Emma Carter" class="w-24 h-24 rounded-full object-cover">
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="bg-gray-50 rounded-2xl p-8 flex items-start gap-6">
+                    <div class="flex-grow">
+                        <div class="w-10 h-10 bg-[#FFD700] rounded-full flex items-center justify-center mb-4">
+                            <img src="images/quote.png" alt="Quote" class="w-8 h-8 md:w-8 md:h-8">
+                        </div>
+                        <p class="text-lg mb-4">The way Little Wonders encourages creativity is just amazing! My daughter comes home with new stories, songs, and crafts every day. It's wonderful to see her imagination bloom.</p>
+                        <p class="font-bold text-xl"> Mr. Ravi Menon, Parent of LKG student
+
+                        </p>
+                    </div>
+                    <img src="images/lady.jpg" alt="Priya Kumar" class="w-24 h-24 rounded-full object-cover">
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="bg-gray-50 rounded-2xl p-8 flex items-start gap-6">
+                    <div class="flex-grow">
+                        <div class="w-10 h-10 bg-[#87CEEB] rounded-full flex items-center justify-center mb-4">
+                            <img src="images/quote.png" alt="Quote" class="w-8 h-8 md:w-8 md:h-8">
+                        </div>
+                        <p class="text-lg mb-4">The school's colourful, nature-friendly environment makes it feel more like a joyful garden than a classroom. My son loves going there—it's his happy place!</p>
+                        <p class="font-bold text-xl"> Mrs. Leena Das, Parent of Nursery student
+
+                        </p>
+                    </div>
+                    <img src="images/lady.jpg" alt="Nina Tran" class="w-24 h-24 rounded-full object-cover">
+                </div>
+
+                <!-- Testimonial 4 -->
+                <div class="bg-gray-50 rounded-2xl p-8 flex items-start gap-6">
+                    <div class="flex-grow">
+                        <div class="w-10 h-10 bg-[#FF69B4] rounded-full flex items-center justify-center mb-4">
+                            <img src="images/quote.png" alt="Quote" class="w-8 h-8 md:w-8 md:h-8">
+                        </div>
+                        <p class="text-lg mb-4">The Montessori approach followed here is phenomenal. The teachers are patient, caring, and know exactly how to engage little minds. Learning truly feels like play!</p>
+                        <p class="font-bold text-xl">Mr. Joseph Mathew, Parent of Play School student</p>
+                    </div>
+                    <img src="images/men.jpg" alt="Jordan Ellis" class="w-24 h-24 rounded-full object-cover">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Career Skills Section -->
+    <div class="bg-[#87CEEB] py-20">
+        <div class="container mx-auto px-8 md:px-16 lg:px-24">
+            <div class="flex flex-col lg:flex-row items-start justify-between gap-12">
+                <!-- Left Content -->
+                <div class="lg:w-1/2 lg:pr-12">
+                    <h2 class="text-5xl font-normal mb-6">
+                        The Care They Deserve<br>
+                        for the <span class="font-black">Growth They Need<br>
+                       
+                    </h2>
+                    <p class="text-2xl mb-8">
+                        Nurture their early steps with care at Little Wonders.
+                    </p>
+                    <a href="#contact">
+                    <button class="bg-[#FFD700] text-black px-4 md:px-8 py-2 md:py-4 rounded-full text-sm md:text-xl font-medium hover:bg-[#FFE033] transition-colors shadow-lg w-2/3 md:w-auto md:text-center">
+                        Start Your Child's Journey With Us
+                    </button></a>
+                </div>
+
+                <!-- Right Content - Images -->
+                <div class="lg:w-1/2 relative lg:pl-12">
+                    <!-- Top Image -->
+                    <div class="relative z-10 ml-auto w-3/4">
+                        <img src="images/kinder1.jpg" alt="Student" class="w-full rounded-2xl shadow-xl">
+                    </div>
+                    <!-- Bottom Image -->
+                    <div class="absolute bottom-[-20%] right-[40%] w-2/3 z-20">
+                        <img src="images/kinder2.jpg" alt="Student" class="w-full rounded-2xl shadow-xl">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+ 
+
+    <!-- FAQ Section -->
+    <div class="container mx-auto px-8 md:px-16 lg:px-24 py-20">
+        <div class="flex flex-col lg:flex-row items-start justify-between gap-16">
+            <!-- Left Side -->
+            <div class="lg:w-1/3">
+                <h2 class="text-5xl mb-6">
+                    Your Questions,<br>
+                    <span class="font-black">Answered</span>
+                </h2>
+                <!-- <p class="text-xl mb-8">
+                    Request Your Free Program Guide from The Digital Foundry
+                </p> -->
+                <!-- Pink Arrow -->
+                <div class="hidden lg:block relative">
+                    <img src="images/arrow.png" alt="Arrow" class="w-56 h-auto" style="filter: hue-rotate(140deg);">
+                </div>
+            </div>
+
+            <!-- Right Side - FAQ Cards -->
+            <div class="lg:w-2/3 space-y-6">
+                <!-- FAQ Card 1 -->
+                <div class="bg-[#FFD700] rounded-3xl p-8">
+                    <h3 class="text-2xl font-bold mb-4">What age group do you admit?</h3>
+                    <p class="text-lg">We welcome children between 2 to 5 years for Play School, Nursery, LKG, and UKG programs.</p>
+                </div>
+
+                <!-- FAQ Card 2 -->
+                <div class="bg-[#FFD700] rounded-3xl p-8">
+                    <h3 class="text-2xl font-bold mb-4">What teaching method do you follow?</h3>
+                    <p class="text-lg">We follow a blend of Montessori and Play-way methods, focusing on fun, creativity, and learning through hands-on experiences.</p>
+                </div>
+
+                <!-- FAQ Card 3 -->
+                <div class="bg-[#FFD700] rounded-3xl p-8">
+                    <h3 class="text-2xl font-bold mb-4">Who oversees the school's activities?</h3>
+                    <p class="text-lg">All programs are conducted under the expert care of Dr. V.R. Aloke, a leading Neonatologist and Pediatrician with vast experience in child development.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Contact Form Section -->
+    <div id="contact" class="bg-[#87CEEB] py-20">
+        <div class="container mx-auto px-4 max-w-3xl">
+            <div class="bg-white rounded-3xl p-12">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl md:text-5xl font-normal mb-4">
+                        Take the First Step <span class="font-normal">Toward<br>
+                        Your Child's Bright Future</span>
+                    </h2>
+                    <p class="text-xl text-gray-700">
+                        Learn More About Our Nurturing Programs                    </p>
+                </div>
+
+                <form class="space-y-6">
+                    <!-- First Name -->
+                    <div>
+                        <label class="block text-lg mb-2">First Name</label>
+                        <input type="text" class="w-full px-4 py-3 rounded-full border-2 border-gray-300 focus:border-[#87CEEB] focus:outline-none">
+                    </div>
+
+                    <!-- Email -->
+                    <div>
+                        <label class="block text-lg mb-2">Email *</label>
+                        <input type="email" required class="w-full px-4 py-3 rounded-full border-2 border-gray-300 focus:border-[#87CEEB] focus:outline-none">
+                    </div>
+
+                    <!-- Phone Number -->
+                    <div>
+                        <label class="block text-lg mb-2">Phone Number</label>
+                        <input type="tel" class="w-full px-4 py-3 rounded-full border-2 border-gray-300 focus:border-[#87CEEB] focus:outline-none">
+                    </div>
+
+
+
+                    <!-- Submit Button -->
+                    <div class="text-center pt-4">
+                        <button type="submit" class="bg-[#FFD700] text-black px-12 py-4 rounded-full text-xl font-medium hover:bg-[#FFE033] transition-colors">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-b from-[#FFD700] to-[#FFA500] py-16 relative overflow-hidden">
+        <!-- Decorative Elements -->
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+            <!-- Floating Stars -->
+            <div class="absolute top-4 left-4 w-8 h-8 bg-[#FFD700] rounded-full opacity-30 animate-float-slow"></div>
+            <div class="absolute top-12 right-8 w-6 h-6 bg-[#FFD700] rounded-full opacity-30 animate-float-medium"></div>
+            <div class="absolute bottom-8 left-12 w-10 h-10 bg-[#FFD700] rounded-full opacity-30 animate-float-fast"></div>
+            <div class="absolute bottom-16 right-16 w-7 h-7 bg-[#FFD700] rounded-full opacity-30 animate-float-slow"></div>
+            
+            <!-- Floating Clouds -->
+            <div class="absolute top-8 left-1/4 w-16 h-8 bg-white rounded-full opacity-20 animate-cloud-slow"></div>
+            <div class="absolute top-16 right-1/3 w-20 h-10 bg-white rounded-full opacity-20 animate-cloud-medium"></div>
+            <div class="absolute bottom-12 left-1/3 w-14 h-7 bg-white rounded-full opacity-20 animate-cloud-fast"></div>
+            
+            <!-- Floating Hearts -->
+            <div class="absolute top-20 left-1/2 w-6 h-6 text-[#FF69B4] opacity-30 animate-heart-slow">
+                <i class="fas fa-heart"></i>
+                    </div>
+            <div class="absolute bottom-24 right-1/4 w-5 h-5 text-[#FF69B4] opacity-30 animate-heart-medium">
+                <i class="fas fa-heart"></i>
+            </div>
+        </div>
+
+        <div class="container mx-auto px-4 md:px-8 lg:px-16 relative">
+            <!-- Main Footer Content -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                <!-- Logo and Description -->
+                <div class="text-center md:text-left">
+                    <div class="inline-block px-6 py-3 ">
+                        <img src="images/lw.png" alt="Little Wonders Logo" class="w-16 h-16 md:w-32 md:h-32">
+                    </div>
+                    <p class="text-gray-800 mb-6">Where little minds blossom and dreams take flight. Join us in creating magical moments for your child's early years.</p>
+                    <div class="flex justify-center md:justify-start space-x-4">
+                        <a href="#" class="w-10 h-10 bg-white rounded-full flex items-center justify-center transform hover:scale-110 transition-transform shadow-md">
+                            <i class="fab fa-facebook-f text-[#FF3333]"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white rounded-full flex items-center justify-center transform hover:scale-110 transition-transform shadow-md">
+                            <i class="fab fa-instagram text-[#FF3333]"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white rounded-full flex items-center justify-center transform hover:scale-110 transition-transform shadow-md">
+                            <i class="fab fa-twitter text-[#FF3333]"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="text-center md:text-left">
+                    <h3 class="text-xl font-bold mb-6 text-white">Quick Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-800 hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="#" class="text-gray-800 hover:text-white transition-colors">Programs</a></li>
+                        <li><a href="#" class="text-gray-800 hover:text-white transition-colors">Summer Camp</a></li>
+                        <li><a href="#" class="text-gray-800 hover:text-white transition-colors">Gallery</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="text-center md:text-left">
+                    <h3 class="text-xl font-bold mb-6 text-white">Contact Us</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-center justify-center md:justify-start">
+                            <i class="fas fa-map-marker-alt text-[#FF3333] mr-2"></i>
+                            <span class="text-gray-800">123 Innovation Drive, Suite 500</span>
+                        </li>
+                        <li class="flex items-center justify-center md:justify-start">
+                            <i class="fas fa-phone text-[#FF3333] mr-2"></i>
+                            <span class="text-gray-800">+1 (800) 555-6789</span>
+                        </li>
+                        <li class="flex items-center justify-center md:justify-start">
+                            <i class="fas fa-envelope text-[#FF3333] mr-2"></i>
+                            <span class="text-gray-800">info@littlewonders.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="border-t border-white/20 pt-8">
+                <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0">
+                    <p class="text-gray-800 text-sm text-center">© 2025 Little Wonders. All rights reserved.</p>
+                    
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Add smooth scroll handling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    // Close mobile menu if open
+                    const mobileMenu = document.querySelector('.mobile-menu');
+                    if (!mobileMenu.classList.contains('translate-x-full')) {
+                        toggleMobileMenu();
+                    }
+                    
+                    // Smooth scroll to target
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        function createBubble() {
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble';
+            
+            // Create image element for the bubble
+            const bubbleImg = document.createElement('img');
+            bubbleImg.src = 'images/bubble.svg';
+            bubble.appendChild(bubbleImg);
+            
+            // Random size between 20px and 60px
+            const size = Math.random() * 40 + 20;
+            bubble.style.width = `${size}px`;
+            bubble.style.height = `${size}px`;
+            
+            // Random position across the width of the container
+            const containerWidth = document.getElementById('bubbleContainer').offsetWidth;
+            const startX = Math.random() * (containerWidth - size);
+            
+            // Start from bottom
+            const startY = document.getElementById('bubbleContainer').offsetHeight;
+            
+            bubble.style.left = `${startX}px`;
+            bubble.style.top = `${startY}px`;
+            
+            // Add touch/click handler for popping
+            bubble.addEventListener('click', function() {
+                if (!this.classList.contains('popping')) {
+                    this.classList.add('popping');
+                    setTimeout(() => this.remove(), 300);
+                }
+            });
+            
+            document.getElementById('bubbleContainer').appendChild(bubble);
+            
+            // Random animation duration between 5 and 10 seconds
+            const duration = Math.random() * 5 + 5;
+            
+            // Random horizontal movement range (reduced for more natural movement)
+            const xMovement = (Math.random() - 0.5) * 50;
+            
+            // Create timeline for complex animation
+            const tl = gsap.timeline({
+                onComplete: () => {
+                    if (!bubble.classList.contains('popping')) {
+                        bubble.remove();
+                    }
+                }
+            });
+            
+            // Initial scale animation
+            tl.from(bubble, {
+                scale: 0.3,
+                duration: 0.5,
+                ease: "elastic.out(1, 0.5)"
+            });
+            
+            // Main floating animation with wobble
+            tl.to(bubble, {
+                y: -startY - size,
+                x: xMovement,
+                rotation: Math.random() * 360,
+                duration: duration,
+                ease: "none"
+            }, 0);
+            
+            // Wobble animation
+            tl.to(bubble, {
+                rotation: `+=${Math.random() * 180 - 90}`,
+                duration: duration / 2,
+                ease: "sine.inOut",
+                repeat: 1,
+                yoyo: true
+            }, 0);
+            
+            // Scale variation for floating effect
+            tl.to(bubble, {
+                scale: 0.8 + Math.random() * 0.4,
+                duration: duration / 3,
+                ease: "sine.inOut",
+                repeat: 2,
+                yoyo: true
+            }, 0);
+            
+            // Fade out at the end
+            tl.to(bubble, {
+                opacity: 0,
+                duration: duration * 0.3,
+                ease: "power1.in"
+            }, duration - duration * 0.3);
+        }
+
+        // Create new bubbles periodically
+        function startBubbles() {
+            // Create initial set of bubbles
+            for(let i = 0; i < 8; i++) {
+                setTimeout(createBubble, Math.random() * 2000);
+            }
+            
+            // Continue creating bubbles every 500ms (reduced frequency for better performance)
+            setInterval(createBubble, 500);
+        }
+
+        // Start the animation when the page loads
+        window.addEventListener('load', startBubbles);
+
+        function toggleMobileMenu() {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const overlay = document.querySelector('.mobile-menu-overlay');
+            mobileMenu.classList.toggle('translate-x-full');
+            mobileMenu.classList.toggle('translate-x-0');
+            overlay.classList.toggle('translate-x-full');
+            overlay.classList.toggle('translate-x-0');
+            
+            // Prevent body scroll when menu is open
+            document.body.style.overflow = mobileMenu.classList.contains('translate-x-full') ? 'auto' : 'hidden';
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const menuButton = document.querySelector('.mobile-menu-button');
+            const overlay = document.querySelector('.mobile-menu-overlay');
+            if (!mobileMenu.contains(e.target) && !menuButton.contains(e.target)) {
+                mobileMenu.classList.add('translate-x-full');
+                mobileMenu.classList.remove('translate-x-0');
+                overlay.classList.add('translate-x-full');
+                overlay.classList.remove('translate-x-0');
+                document.body.style.overflow = 'auto';
+            }
+        });
+    </script>
+</body>
+</html>
